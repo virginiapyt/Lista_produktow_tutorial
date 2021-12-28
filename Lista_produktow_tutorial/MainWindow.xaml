@@ -1,0 +1,43 @@
+﻿<Window x:Class="Lista_produktow_tutorial.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lista_produktow_tutorial"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="Wyszukaj wg nazwy" Margin="10"/>
+        <TextBox x:Name="txtSzukaj" Grid.Column="1"  Margin="10" />
+        <ListView ItemsSource="{Binding ListOfProduct}" 
+                  
+                  Grid.Row="1" Grid.ColumnSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" 
+                                    Header="Id"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Nazwa"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Price}" 
+                                    Header="Cena"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ExpirationDate}" 
+                                    Header="Data przydatnosci"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" 
+                    Orientation="Horizontal">
+            <Button Content="Dodaj"  Margin="20 5 20 5 " x:Name="dodaj"/>
+            <Button Content="Edytuj"  Margin="20 5 20 5 " x:Name="edytuj"/>
+            <Button Content="Usun"   Margin="20 5 20 5 " x:Name="usun"/>
+        </StackPanel>
+    </Grid>
+</Window>
