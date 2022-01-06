@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lista_produktow_tutorial"
+        xmlns:converters="clr-namespace:Lista_produktow_tutorial.Converters"
+        xmlns:properties="clr-namespace:Lista_produktow_tutorial.Properties"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -17,8 +20,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Content="Wyszukaj wg nazwy" Margin="10"/>
-        <TextBox x:Name="txtSzukaj" Grid.Column="1"  Margin="10" />
-        <ListView ItemsSource="{Binding ListOfProduct}" 
+        <TextBox x:Name="txtSzukaj" Grid.Column="1"  Margin="10" TextChanged="txtSzukaj_TextChanged" />
+        <ListView ItemsSource="{Binding ListOfProduct}"  
+                  SelectedItem = "{Binding SelectedProduct}"
                   
                   Grid.Row="1" Grid.ColumnSpan="2">
             <ListView.View>
@@ -30,14 +34,26 @@
                                     Header="Cena"/>
                     <GridViewColumn DisplayMemberBinding="{Binding ExpirationDate}" 
                                     Header="Data przydatnosci"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ExpirationDate,
+                        Converter={converters:DatatimeToDaysConverter}}" Header="Dni"/>
+                    <GridViewColumn  Header="nazwa + cena">
+                        <GridViewColumn.DisplayMemberBinding>
+                            <MultiBinding  Converter="{converters:StringConcatMultiValueConverter}">
+                                <MultiBinding.Bindings>
+                                    <Binding Path="Name"/>
+                                    <Binding Path="Price"/>
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" 
                     Orientation="Horizontal">
-            <Button Content="Dodaj"  Margin="20 5 20 5 " x:Name="dodaj"/>
-            <Button Content="Edytuj"  Margin="20 5 20 5 " x:Name="edytuj"/>
-            <Button Content="Usun"   Margin="20 5 20 5 " x:Name="usun"/>
+            <Button Content="Dodaj"  Margin="20 5 20 5 " x:Name="dodaj" Click="dodaj_Click"/>
+            <Button Content="Edytuj"  Margin="20 5 20 5 " x:Name="edytuj" Click="edytuj_Click"/>
+            <Button Content="Usun"   Margin="20 5 20 5 " x:Name="usun" Click="usun_Click"/>
         </StackPanel>
     </Grid>
 </Window>

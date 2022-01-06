@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lista_produktow_tutorial
 {
-    public class Product
+    public class Product : ICloneable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,6 +19,11 @@ namespace Lista_produktow_tutorial
             Name = name;
             Price = price;
             ExpirationDate = expirationDate;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }
